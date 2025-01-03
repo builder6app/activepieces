@@ -5,10 +5,11 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
+import copy from 'rollup-plugin-copy'
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/react-ui',
+  cacheDir: '../../node_modules/.vite/packages/react-umd',
 
   server: {
     proxy: {
@@ -28,7 +29,7 @@ export default defineConfig({
   },
 
   preview: {
-    port: 4300,
+    port: 4500,
     host: 'localhost',
   },
   resolve: {
@@ -58,11 +59,22 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
+    copy({
+      targets: [
+        {
+          src: 'index.html',
+          dest: 'dist'
+        }
+      ]
+    })
   ],
 
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'), // or 'development'
+  },
   build: {
     outDir: './dist',
-    emptyOutDir: true,
+    emptyOutDir: false,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
@@ -78,9 +90,10 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          '@builder6/react': 'Builder6React',
         },
       },
-      "external": ["react", "react-dom"],
+      "external": ["react", "react-dom", "@builder6/react"],
       onLog(level, log, handler) {
         if (
           log.cause &&

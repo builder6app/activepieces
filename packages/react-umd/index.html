@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow Builder X</title>
+            
+    <script src="https://unpkg.com/@builder6/react@3.2.18/dist/builder-react.browser.js"></script>
+    <script src="https://unpkg.com/amis@6.10.0/sdk/sdk.js"></script>
+
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/amis@6.10.0/lib/themes/antd.css" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@6.10.0/lib/helper.css" />
+    <link rel="stylesheet" href="https://unpkg.com/amis@6.10.0/sdk/iconfont.css" />
+    <script async>
+      window['React'] = amisRequire('react');
+      window['ReactDOM'] = amisRequire('react-dom');
+      window['moment'] = amisRequire('moment');
+      window['Builder'] = Builder6React.Builder;
+      window['builder'] = Builder6React.builder;
+    </script>
+    <script src="http://localhost:4500/index.umd.js"></script>
+
+    <script>
+      renderBuilder = function (dom, schema, data, env) {
+        assetUrls = env.assetUrls;
+        const content = {
+          data: {
+            blocks: [
+              schema  
+            ],
+          },
+        };
+
+
+        // 挂载到 DOM 上
+        const root = ReactDOM.createRoot(dom);
+        root.render(React.createElement(Builder6React.BuilderComponent, {content}));
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      
+
+  <div id="root" class="w-full h-full"></div>
+  <script type="text/javascript">
+    const data = {
+      flowId: '3KKb8FQSS0sgQ87SmMswp'
+    }
+    const schema = {
+      id: `builder-flow-builder`,
+      "@type": "@builder.io/sdk:Element",
+      "@version": 2,
+      component: {
+        name: "AP:FlowBuilder",
+        options: {
+          flowId: data.flowId,
+        }
+      },
+      responsiveStyles: {
+        large: {
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          flexShrink: "0",
+          boxSizing: "border-box",
+          width: "100%",
+        },
+      },
+    }
+    const env = {
+      assetUrls: '',
+    }
+    renderBuilder(document.getElementById('root'), schema, data, env)
+  </script> 
+
+    </main>
+  </body>
+</html>
