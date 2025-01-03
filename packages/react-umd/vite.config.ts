@@ -80,7 +80,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: './src/index.ts', // 入口文件
+      entry: './src/index.tsx', // 入口文件
       name: 'Activepieces', // UMD 模块名称
       fileName: (format) => `index.${format}.js`,
       formats: ['umd'], // 输出格式
