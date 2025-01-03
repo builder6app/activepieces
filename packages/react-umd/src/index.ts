@@ -1,0 +1,1 @@
+export { FlowBuilderPage } from '../../react-ui/src/app/routes/flows/id';
