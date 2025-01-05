@@ -10,22 +10,12 @@ import replace from '@rollup/plugin-replace';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/react-umd',
+  cacheDir: '../../node_modules/.vite/packages/react-umd-lib',
 
   server: {
     proxy: {
-      '/automation': {
-        target: 'http://localhost:5100',
-        secure: false,
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/automation/, ''),
-        headers: {
-          Host: 'localhost:4700',
-        },
-        ws: true,
-      },
       '/api': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://127.0.0.1:5100',
         secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
@@ -35,12 +25,24 @@ export default defineConfig({
         ws: true,
       },
     },
-    port: 4700,
+    port: 4200,
     host: '0.0.0.0',
   },
 
   preview: {
-    port: 4800,
+    proxy: {
+      '/automation': {
+        target: 'http://localhost:5100',
+        secure: false,
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/automation/, ''),
+        headers: {
+          Host: 'localhost:4500',
+        },
+        ws: true,
+      },
+    },
+    port: 4500,
     host: 'localhost',
   },
   resolve: {
@@ -70,23 +72,49 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
+    copy({
+      targets: [
+        {
+          src: 'index.umd.html',
+          dest: 'dist'
+        }
+      ]
+    }),
     replace({
       preventAssignment: true,
+      'process.env.NODE_ENV': '"production"',
       'API_URL': '"/automation/api"',
     }),
   ],
-  define: {
-    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-  },
 
+  // define: {
+  //   'process.env.NODE_ENV': JSON.stringify('production'), // or 'development'
+  // },
   build: {
-    outDir: '../../dist/packages/react-umd',
-    emptyOutDir: true,
+    outDir: './dist',
+    emptyOutDir: false,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+    lib: {
+      entry: './src/index.tsx', // 入口文件
+      name: 'Activepieces', // UMD 模块名称
+      fileName: (format) => `index.${format}.js`,
+      formats: ['umd'], // 输出格式
+    },
+    minify: false,
+    // 关闭terser压缩
+    terserOptions: false,
     rollupOptions: {
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          '@builder6/react': 'Builder6React',
+        },
+      },
+      "external": ["react", "react-dom", "@builder6/react"],
       onLog(level, log, handler) {
         if (
           log.cause &&
