@@ -12,6 +12,14 @@
         "jestConfig": "packages/react-umd/jest.config.ts"
       }
     },
+    "build-umd": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/packages/react-umd"],
+      "options": {
+        "command": "vite build --config vite.config.umd.ts",
+        "cwd": "packages/react-umd"
+      }
+    },
     "vite-typecheck": {
       "executor": "nx:run-commands",
       "options": {

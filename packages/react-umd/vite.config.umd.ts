@@ -31,7 +31,7 @@ export default defineConfig({
 
   preview: {
     proxy: {
-      '/automation': {
+      '/api/automation': {
         target: 'http://localhost:5100',
         secure: false,
         changeOrigin: true,
@@ -82,14 +82,12 @@ export default defineConfig({
     }),
     replace({
       preventAssignment: true,
-      'process.env.NODE_ENV': '"production"',
-      'API_URL': '"/automation/api"',
+      'API_URL': '"/api/automation"',
     }),
   ],
-
-  // define: {
-  //   'process.env.NODE_ENV': JSON.stringify('production'), // or 'development'
-  // },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+  },
   build: {
     outDir: './dist',
     emptyOutDir: false,

@@ -14,13 +14,13 @@ export default defineConfig({
 
   server: {
     proxy: {
-      '/automation': {
+      '/api/automation': {
         target: 'http://localhost:5100',
         secure: false,
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/automation/, ''),
         headers: {
-          Host: 'localhost:4700',
+          Host: 'localhost:4200',
         },
         ws: true,
       },
@@ -70,10 +70,10 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
-    // replace({
-    //   preventAssignment: true,
-    //   'API_URL': '"/automation/api"',
-    // }),
+    replace({
+      preventAssignment: true,
+      'API_URL': '"/api/automation"',
+    }),
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
