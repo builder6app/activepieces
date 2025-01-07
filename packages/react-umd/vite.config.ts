@@ -35,7 +35,7 @@ export default defineConfig({
         ws: true,
       },
     },
-    port: 4700,
+    port: 4200,
     host: '0.0.0.0',
   },
 
@@ -70,10 +70,10 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
-    replace({
-      preventAssignment: true,
-      'API_URL': '"/automation/api"',
-    }),
+    // replace({
+    //   preventAssignment: true,
+    //   'API_URL': '"/automation/api"',
+    // }),
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),

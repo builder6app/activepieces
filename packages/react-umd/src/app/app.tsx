@@ -6,6 +6,8 @@ import {
   
   import { Toaster } from '@/components/ui/toaster';
   import { TooltipProvider } from '@/components/ui/tooltip';
+  import { InitialDataGuard } from '@/app/components/initial-data-guard';
+  import { ThemeProvider } from '@/components/theme-provider';
   
   import { ApRouter } from './router';
   
@@ -22,10 +24,14 @@ import {
   export function App() {
     return (
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-            <ApRouter />
-            <Toaster />
-        </TooltipProvider>
+        <InitialDataGuard>
+          <TooltipProvider>
+            <ThemeProvider storageKey="vite-ui-theme">
+              <ApRouter />
+              <Toaster />
+            </ThemeProvider>
+          </TooltipProvider>
+        </InitialDataGuard>
       </QueryClientProvider>
     );
   }
