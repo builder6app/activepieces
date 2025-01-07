@@ -3,6 +3,7 @@ import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
+  createHashRouter,
   createMemoryRouter,
   useLocation,
 } from 'react-router-dom';
@@ -83,7 +84,7 @@ const routes = [
   }
 ];
 const ApRouter = () => {
-  const router = createBrowserRouter(routes);
+  const router = createHashRouter(routes);
 
   return <RouterProvider router={router}></RouterProvider>;
 };
