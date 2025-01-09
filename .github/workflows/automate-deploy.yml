@@ -5,7 +5,7 @@ on:
   pull_request:
     types: [merged]
     branches:
-      - main
+      - main.disabled
     merged: true
 
 jobs:
