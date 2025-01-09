@@ -48,11 +48,11 @@ COPY . .
 COPY .npmrc package.json package-lock.json ./
 RUN npm ci
 
-RUN npx nx run-many --target=build --projects=server-api --configuration production
-RUN npx nx run-many --target=build --projects=react-ui 
+RUN npx nx run-many --target=build --projects=builder6-api --configuration production
+RUN npx nx run-many --target=build --projects=builder6-ui 
 
 # Install backend production dependencies
-RUN cd dist/packages/server/api && npm install --production --force
+RUN cd dist/packages/builder6/api && npm install --production --force
 
 ### STAGE 2: Run ###
 FROM base AS run
@@ -60,7 +60,7 @@ FROM base AS run
 # Set up backend
 WORKDIR /usr/src/app
 
-COPY packages/server/api/src/assets/default.cf /usr/local/etc/isolate
+COPY packages/builder6/api/src/assets/default.cf /usr/local/etc/isolate
 
 # Install Nginx and gettext for envsubst
 RUN apt-get update && apt-get install -y nginx gettext
@@ -70,22 +70,22 @@ COPY nginx.react.conf /etc/nginx/nginx.conf
 
 COPY --from=build /usr/src/app/LICENSE .
 
-RUN mkdir -p /usr/src/app/dist/packages/server/
+RUN mkdir -p /usr/src/app/dist/packages/builder6/
 RUN mkdir -p /usr/src/app/dist/packages/engine/
 RUN mkdir -p /usr/src/app/dist/packages/shared/
 
 # Copy Output files to appropriate directory from build stage
 COPY --from=build /usr/src/app/dist/packages/engine/ /usr/src/app/dist/packages/engine/
-COPY --from=build /usr/src/app/dist/packages/server/ /usr/src/app/dist/packages/server/
+COPY --from=build /usr/src/app/dist/packages/builder6/ /usr/src/app/dist/packages/builder6/
 COPY --from=build /usr/src/app/dist/packages/shared/ /usr/src/app/dist/packages/shared/
 
-RUN cd /usr/src/app/dist/packages/server/api/ && npm install --production --force
+RUN cd /usr/src/app/dist/packages/builder6/api/ && npm install --production --force
 
 # 
 # Copy Output files to appropriate directory from build stage
 COPY --from=build /usr/src/app/packages packages
 # Copy frontend files to Nginx document root directory from build stage
-COPY --from=build /usr/src/app/dist/packages/react-ui /usr/share/nginx/html/
+COPY --from=build /usr/src/app/dist/packages/builder6-ui /usr/share/nginx/html/
 
 LABEL service=activepieces
 
