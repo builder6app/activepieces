@@ -65,14 +65,14 @@ export function DashboardContainer({ children }: DashboardContainerProps) {
       showInEmbed: true,
       hasPermission: checkAccess(Permission.READ_RUN),
     },
-    {
-      to: authenticationSession.appendProjectRoutePrefix('/issues'),
-      label: t('Issues'),
-      icon: AlertCircle,
-      notification: showIssuesNotification,
-      showInEmbed: false,
-      hasPermission: checkAccess(Permission.READ_ISSUES),
-    },
+    // {
+    //   to: authenticationSession.appendProjectRoutePrefix('/issues'),
+    //   label: t('Issues'),
+    //   icon: AlertCircle,
+    //   notification: showIssuesNotification,
+    //   showInEmbed: false,
+    //   hasPermission: checkAccess(Permission.READ_ISSUES),
+    // },
     {
       to: authenticationSession.appendProjectRoutePrefix('/connections'),
       label: t('Connections'),
