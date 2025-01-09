@@ -1,7 +1,7 @@
 {
-  "name": "server-api-mongo",
+  "name": "builder6-api",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/server/api-mongo/src",
+  "sourceRoot": "packages/builder6/api/src",
   "projectType": "application",
   "implicitDependencies": ["engine"],
   "targets": {
@@ -11,11 +11,11 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/packages/server/api-mongo",
-        "main": "packages/server/api-mongo/src/main.ts",
-        "tsConfig": "packages/server/api-mongo/tsconfig.app.json",
-        "assets": ["packages/server/api-mongo/src/assets"],
-        "webpackConfig": "packages/server/api-mongo/webpack.config.js",
+        "outputPath": "dist/packages/builder6/api",
+        "main": "packages/builder6/api/src/main.ts",
+        "tsConfig": "packages/builder6/api/tsconfig.app.json",
+        "assets": ["packages/builder6/api/src/assets"],
+        "webpackConfig": "packages/builder6/api/webpack.config.js",
         "generatePackageJson": true,
         "babelUpwardRootMode": true,
         "sourceMap": true
@@ -31,12 +31,12 @@
     "serve": {
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "server-api-mongo:build",
+        "buildTarget": "builder6-api:build",
         "host": "0.0.0.0"
       },
       "configurations": {
         "production": {
-          "buildTarget": "server-api-mongo:build:production"
+          "buildTarget": "builder6-api:build:production"
         }
       }
     },
@@ -44,57 +44,57 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/server/api-mongo/**/*.ts"]
+        "lintFilePatterns": ["packages/builder6/api/**/*.ts"]
       }
     },
     "test-unit": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/server/api-mongo/jest.config.ts",
+        "jestConfig": "packages/builder6/api/jest.config.ts",
         "passWithNoTests": false,
         "bail": true,
-        "testPathPattern": ["packages/server/api-mongo/test/unit"]
+        "testPathPattern": ["packages/builder6/api/test/unit"]
       }
     },
     "test-ce": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/server/api-mongo/jest.config.ts",
+        "jestConfig": "packages/builder6/api/jest.config.ts",
         "passWithNoTests": false,
         "bail": true,
-        "testPathPattern": ["packages/server/api-mongo/test/integration/ce"]
+        "testPathPattern": ["packages/builder6/api/test/integration/ce"]
       }
     },
     "test-cloud": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/server/api-mongo/jest.config.ts",
+        "jestConfig": "packages/builder6/api/jest.config.ts",
         "passWithNoTests": false,
         "bail": true,
-        "testPathPattern": ["packages/server/api-mongo/test/integration/cloud"]
+        "testPathPattern": ["packages/builder6/api/test/integration/cloud"]
       }
     },
     "test-ee": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/server/api-mongo/jest.config.ts",
+        "jestConfig": "packages/builder6/api/jest.config.ts",
         "passWithNoTests": false,
         "bail": true,
-        "testPathPattern": ["packages/server/api-mongo/test/integration/ee"]
+        "testPathPattern": ["packages/builder6/api/test/integration/ee"]
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build server-api-mongo",
-          "export $(cat packages/server/api-mongo/.env.tests | xargs) && AP_EDITION=cloud nx test-cloud server-api-mongo --output-style stream-without-prefixes",
-          "export $(cat packages/server/api-mongo/.env.tests | xargs) && AP_EDITION=ce nx test-ce server-api-mongo --output-style stream-without-prefixes",
-          "export $(cat packages/server/api-mongo/.env.tests | xargs) && AP_EDITION=ee nx test-ee server-api-mongo --output-style stream-without-prefixes"
+          "nx build builder6-api",
+          "export $(cat packages/builder6/api/.env.tests | xargs) && AP_EDITION=cloud nx test-cloud builder6-api --output-style stream-without-prefixes",
+          "export $(cat packages/builder6/api/.env.tests | xargs) && AP_EDITION=ce nx test-ce builder6-api --output-style stream-without-prefixes",
+          "export $(cat packages/builder6/api/.env.tests | xargs) && AP_EDITION=ee nx test-ee builder6-api --output-style stream-without-prefixes"
         ],
         "parallel": false
       }
@@ -105,13 +105,13 @@
     "db": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node -r tsconfig-paths/register -P packages/server/api-mongo/tsconfig.app.json ./node_modules/typeorm/cli.js"
+        "command": "ts-node -r tsconfig-paths/register -P packages/builder6/api/tsconfig.app.json ./node_modules/typeorm/cli.js"
       }
     },
     "db-migration": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx db server-api-mongo -- migration:generate -p -d packages/server/api-mongo/src/app/database/database-connection.ts packages/server/api-mongo/src/app/database/migration/{args.name}"
+        "command": "nx db builder6-api -- migration:generate -p -d packages/builder6/api/src/app/database/database-connection.ts packages/builder6/api/src/app/database/migration/{args.name}"
       }
     }
   },

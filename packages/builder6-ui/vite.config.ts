@@ -10,20 +10,10 @@ import replace from '@rollup/plugin-replace';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/react-umd',
+  cacheDir: '../../node_modules/.vite/packages/bui6lder-ui',
 
   server: {
     proxy: {
-      '/api/automation': {
-        target: 'http://localhost:5100',
-        secure: false,
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/automation/, ''),
-        headers: {
-          Host: 'localhost:4200',
-        },
-        ws: true,
-      },
       '/api': {
         target: 'http://127.0.0.1:3000',
         secure: false,
@@ -72,7 +62,7 @@ export default defineConfig({
     }),
     replace({
       preventAssignment: true,
-      'API_URL': '"/api/automation"',
+      // 'API_URL': '"/api/automation"',
     }),
   ],
   define: {
@@ -80,7 +70,7 @@ export default defineConfig({
   },
 
   build: {
-    outDir: '../../dist/packages/react-umd',
+    outDir: '../../dist/packages/builder6-ui',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {

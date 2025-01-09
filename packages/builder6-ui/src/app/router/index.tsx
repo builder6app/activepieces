@@ -84,7 +84,7 @@ const routes = [
   }
 ];
 const ApRouter = () => {
-  const router = createHashRouter(routes);
+  const router = createBrowserRouter(routes);
 
   return <RouterProvider router={router}></RouterProvider>;
 };

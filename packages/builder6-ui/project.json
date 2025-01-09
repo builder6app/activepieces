@@ -1,7 +1,7 @@
 {
-  "name": "react-umd",
+  "name": "builder6-ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/react-umd/src",
+  "sourceRoot": "packages/builder-ui/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -9,21 +9,21 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/react-umd/jest.config.ts"
+        "jestConfig": "packages/builder-ui/jest.config.ts"
       }
     },
     "build-umd": {
       "executor": "nx:run-commands",
-      "outputs": ["{workspaceRoot}/dist/packages/react-umd"],
+      "outputs": ["{workspaceRoot}/dist/packages/builder-ui"],
       "options": {
         "command": "vite build --config vite.config.umd.ts",
-        "cwd": "packages/react-umd"
+        "cwd": "packages/builder-ui"
       }
     },
     "vite-typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc --noEmit -p packages/react-umd/tsconfig.app.json"
+        "command": "tsc --noEmit -p packages/builder-ui/tsconfig.app.json"
       }
     }
   }
