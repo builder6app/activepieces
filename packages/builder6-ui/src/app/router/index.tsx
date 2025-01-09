@@ -56,11 +56,13 @@ import { GlobalConnectionsTable } from '@/app/routes/platform/setup/connections'
 import { LicenseKeyPage } from '@/app/routes/platform/setup/license-key';
 import TemplatesPage from '@/app/routes/platform/setup/templates';
 import UsersPage from '@/app/routes/platform/users';
+import { ProjectReleasesPage } from '@/app/routes/project-release';
+import ViewRelease from '@/app/routes/project-release/view-release';
 import { FlowRunPage } from '@/app/routes/runs/id';
 import AlertsPage from '@/app/routes/settings/alerts';
 import AppearancePage from '@/app/routes/settings/appearance';
+import { EnvironmentPage } from '@/app/routes/settings/environment';
 import GeneralPage from '@/app/routes/settings/general';
-import { GitSyncPage } from '@/app/routes/settings/git-sync';
 import TeamPage from '@/app/routes/settings/team';
 import { SignInPage } from '@/app/routes/sign-in';
 import { SignUpPage } from '@/app/routes/sign-up';
@@ -165,6 +167,16 @@ const routes = [
     ),
   },
   ...ProjectRouterWrapper({
+    path: '/releases/:releaseId',
+    element: (
+      <DashboardContainer>
+        <PageTitle title="Releases">
+          <ViewRelease />
+        </PageTitle>
+      </DashboardContainer>
+    ),
+  }),
+  ...ProjectRouterWrapper({
     path: '/runs',
     element: (
       <DashboardContainer>
@@ -197,6 +209,16 @@ const routes = [
             <AppConnectionsPage />
           </PageTitle>
         </RoutePermissionGuard>
+      </DashboardContainer>
+    ),
+  }),
+  ...ProjectRouterWrapper({
+    path: '/releases',
+    element: (
+      <DashboardContainer>
+        <PageTitle title="Releases">
+          <ProjectReleasesPage />
+        </PageTitle>
       </DashboardContainer>
     ),
   }),
@@ -330,13 +352,13 @@ const routes = [
   },
 
   ...ProjectRouterWrapper({
-    path: '/settings/git-sync',
+    path: '/settings/environments',
     element: (
       <DashboardContainer>
         <RoutePermissionGuard permission={Permission.READ_GIT_REPO}>
           <ProjectSettingsLayout>
-            <PageTitle title="Git Sync">
-              <GitSyncPage />
+            <PageTitle title="Environments">
+              <EnvironmentPage />
             </PageTitle>
           </ProjectSettingsLayout>
         </RoutePermissionGuard>

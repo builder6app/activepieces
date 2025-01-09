@@ -1,7 +1,7 @@
-import { ApplicationEventName, AuthenticationEvent, ConnectionEvent, FlowCreatedEvent, FlowDeletedEvent, FlowRunEvent, FolderEvent, GitRepoWithoutSensitiveData, ProjectMember, ProjectRoleEvent, SigningKeyEvent, SignUpEvent } from '@activepieces/ee-shared'
+import { ApplicationEventName, AuthenticationEvent, ConnectionEvent, FlowCreatedEvent, FlowDeletedEvent, FlowRunEvent, FolderEvent, GitRepoWithoutSensitiveData, ProjectMember, ProjectReleaseEvent, ProjectRoleEvent, SigningKeyEvent, SignUpEvent } from '@activepieces/ee-shared'
 import { PieceMetadata } from '@activepieces/pieces-framework'
 import { exceptionHandler, rejectedPromiseHandler, WorkerSystemProp } from '@activepieces/server-shared'
-import { ApEdition, ApEnvironment, AppConnectionWithoutSensitiveData, Flow, FlowRun, FlowTemplate, Folder, isNil, ProjectWithLimits, spreadIfDefined, UserInvitation } from '@activepieces/shared'
+import { ApEdition, ApEnvironment, AppConnectionWithoutSensitiveData, Flow, FlowRun, FlowTemplate, Folder, isNil, ProjectRelease, ProjectWithLimits, spreadIfDefined, UserInvitation } from '@activepieces/shared'
 import swagger from '@fastify/swagger'
 import { createAdapter } from '@socket.io/redis-adapter'
 import { FastifyInstance, FastifyRequest, HTTPMethods } from 'fastify'
@@ -38,7 +38,6 @@ import { customDomainModule } from '@server-api/app/ee/custom-domains/custom-dom
 import { enterpriseFlagsHooks } from '@server-api/app/ee/flags/enterprise-flags.hooks'
 import { platformRunHooks } from '@server-api/app/ee/flow-run/cloud-flow-run-hooks'
 import { platformFlowTemplateModule } from '@server-api/app/ee/flow-template/platform-flow-template.module'
-import { gitRepoModule } from '@server-api/app/ee/git-sync/git-sync.module'
 import { globalConnectionModule } from '@server-api/app/ee/global-connections/global-connection-module'
 import { emailService } from '@server-api/app/ee/helper/email/email-service'
 import { platformDomainHelper } from '@server-api/app/ee/helper/platform-domain-helper'
@@ -52,6 +51,8 @@ import { enterprisePieceMetadataServiceHooks } from '@server-api/app/ee/pieces/f
 import { platformPieceModule } from '@server-api/app/ee/pieces/platform-piece-module'
 import { adminPlatformPieceModule } from '@server-api/app/ee/platform/admin-platform.controller'
 import { projectMemberModule } from '@server-api/app/ee/project-members/project-member.module'
+import { gitRepoModule } from '@server-api/app/ee/project-release/git-sync/git-sync.module'
+import { projectReleaseModule } from '@server-api/app/ee/project-release/project-release.module'
 import { projectRoleModule } from '@server-api/app/ee/project-role/project-role.module'
 import { projectEnterpriseHooks } from '@server-api/app/ee/projects/ee-project-hooks'
 import { platformProjectModule } from '@server-api/app/ee/projects/platform-project-module'
@@ -129,6 +130,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
                     [ApplicationEventName.USER_EMAIL_VERIFIED]: AuthenticationEvent,
                     [ApplicationEventName.SIGNING_KEY_CREATED]: SigningKeyEvent,
                     [ApplicationEventName.PROJECT_ROLE_CREATED]: ProjectRoleEvent,
+                    [ApplicationEventName.PROJECT_RELEASE_CREATED]: ProjectReleaseEvent,
                     'flow-template': FlowTemplate,
                     'folder': Folder,
                     'user-invitation': UserInvitation,
@@ -139,6 +141,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
                     'app-connection': AppConnectionWithoutSensitiveData,
                     piece: PieceMetadata,
                     'git-repo': GitRepoWithoutSensitiveData,
+                    'project-release': ProjectRelease,
                 },
             },
             info: {
@@ -281,6 +284,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
             await app.register(analyticsModule)
             await app.register(projectBillingModule)
             await app.register(projectRoleModule)
+            await app.register(projectReleaseModule)
             await app.register(globalConnectionModule)
             setPlatformOAuthService(platformOAuth2Service(app.log))
             projectHooks.set(projectEnterpriseHooks)
@@ -311,6 +315,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
             await app.register(usageTrackerModule)
             await app.register(analyticsModule)
             await app.register(projectRoleModule)
+            await app.register(projectReleaseModule)
             await app.register(globalConnectionModule)
             systemJobHandlers.registerJobHandler(SystemJobName.ISSUES_REMINDER, emailService(app.log).sendReminderJobHandler)
             setPlatformOAuthService(platformOAuth2Service(app.log))
