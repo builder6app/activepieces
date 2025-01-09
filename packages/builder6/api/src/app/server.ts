@@ -7,12 +7,12 @@ import fastify, { FastifyBaseLogger, FastifyInstance } from 'fastify'
 import fastifyFavicon from 'fastify-favicon'
 import { fastifyRawBody } from 'fastify-raw-body'
 import qs from 'qs'
-import { setupApp } from '@server-api/app/app'
+import { setupApp } from './app'
 import { healthModule } from '@server-api/app/health/health.module'
 import { errorHandler } from '@server-api/app/helper/error-handler'
 import { system } from '@server-api/app/helper/system/system'
 import { AppSystemProp } from '@server-api/app/helper/system/system-prop'
-import { setupWorker } from '@server-api/app/worker'
+import { setupWorker } from './worker'
 
 
 export const setupServer = async (): Promise<FastifyInstance> => {

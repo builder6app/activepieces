@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'server-api',
+  displayName: 'builder6-api',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

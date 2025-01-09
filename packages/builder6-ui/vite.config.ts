@@ -10,7 +10,7 @@ import replace from '@rollup/plugin-replace';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/bui6lder-ui',
+  cacheDir: '../../node_modules/.vite/packages/builder6-ui',
 
   server: {
     proxy: {
