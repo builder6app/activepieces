@@ -20,12 +20,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
         headers: {
-          Host: '127.0.0.1:4200',
+          Host: '127.0.0.1:4700',
         },
         ws: true,
       },
     },
-    port: 4200,
+    port: 4700,
     host: '0.0.0.0',
   },
 
