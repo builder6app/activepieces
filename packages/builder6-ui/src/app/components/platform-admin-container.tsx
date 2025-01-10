@@ -39,12 +39,12 @@ export function PlatformAdminContainer({
     //   icon: LineChart,
     //   locked: isLocked(!platform.analyticsEnabled),
     // },
-    // {
-    //   to: '/platform/projects',
-    //   label: t('Projects'),
-    //   icon: LayoutGrid,
-    //   locked: isLocked(!platform.manageProjectsEnabled),
-    // },
+    {
+      to: '/platform/projects',
+      label: t('Projects'),
+      icon: LayoutGrid,
+      locked: isLocked(!platform.manageProjectsEnabled),
+    },
     {
       to: '/platform/users',
       label: t('Users'),

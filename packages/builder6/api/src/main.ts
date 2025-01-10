@@ -6,6 +6,7 @@ import { initializeLock } from '@server-api/app/helper/lock'
 import { system } from '@server-api/app/helper/system/system'
 import { setupServer } from './app/server'
 import { workerPostBoot } from './app/worker'
+import { initializeB6Database } from './app/b6/database'
 
 const start = async (app: FastifyInstance): Promise<void> => {
     try {
@@ -57,6 +58,7 @@ const main = async (): Promise<void> => {
     setupTimeZone()
     if (system.isApp()) {
         await initializeDatabase({ runMigrations: true })
+        await initializeB6Database({ runMigrations: true })
         initializeLock()
     }
     const app = await setupServer()

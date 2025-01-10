@@ -104,6 +104,9 @@ function getEntities(): EntitySchema<unknown>[] {
             )
             break
         case ApEdition.COMMUNITY:
+            entities.push(
+                ProjectMemberEntity,
+            )
             break
         default:
             throw new Error(`Unsupported edition: ${edition}`)
