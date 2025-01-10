@@ -11,8 +11,8 @@ import {
     spreadIfDefined,
     UpdatePlatformRequestBody,
     UserId } from '@activepieces/shared'
-import { repoFactory } from '../core/db/repo-factory'
-import { transaction } from '../core/db/transaction'
+import { repoFactory } from '@server-api/app/core/db/repo-factory'
+import { transaction } from '@server-api/app/core/db/transaction'
 import { defaultTheme } from '@server-api/app/flags/theme'
 import { userService } from '@server-api/app/user/user-service'
 import { PlatformEntity } from './platform.entity'

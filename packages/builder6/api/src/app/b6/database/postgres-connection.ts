@@ -4,7 +4,8 @@ import { DataSource, MigrationInterface } from 'typeorm'
 import { AddProjectMembers1689177797092 } from './migrations/postgres/1689177797092-AddProjectMembers'
 import { ProjectMemberRelations1694381968985 } from './migrations/postgres/1694381968985-project-member-relations'
 
-import { ModifyProjectMembersAndRemoveUserId1701647565290 } from '@server-api/app/database/migration/postgres/1701647565290-ModifyProjectMembersAndRemoveUserId'
+import { ModifyProjectMembersAndRemoveUserId1701647565290 } from './migrations/postgres/1701647565290-ModifyProjectMembersAndRemoveUserId'
+import { ModifyProjectMembers1717961669938 } from './migrations/postgres/1717961669938-ModifyProjectMembers'
 
 import { system } from '@server-api/app/helper/system/system'
 import { AppSystemProp } from '@server-api/app/helper/system/system-prop'
@@ -36,7 +37,8 @@ const getMigrations = (): (new () => MigrationInterface)[] => {
                 AddProjectMembers1689177797092,
                 ProjectMemberRelations1694381968985,
                 ModifyProjectMembersAndRemoveUserId1701647565290,
-                // ModifyProjectMembers1717961669938,
+                ModifyProjectMembers1717961669938,
+                
             )
             break
     }

@@ -27,8 +27,9 @@ import {
 import { FastifyBaseLogger } from 'fastify'
 import { EntityManager, Equal, ILike, In, IsNull } from 'typeorm'
 import { appConnectionService } from '@server-api/app/app-connection/app-connection-service/app-connection-service'
-import { repoFactory } from '../core/db/repo-factory'
-import { transaction } from '../core/db/transaction'
+
+import { repoFactory } from '@server-api/app/core/db/repo-factory'
+import { transaction } from '@server-api/app/core/db/transaction'
 import { flagService } from '@server-api/app/flags/flag.service'
 import { flowService } from '@server-api/app/flows/flow/flow.service'
 import { buildPaginator } from '@server-api/app/helper/pagination/build-paginator'
@@ -271,8 +272,6 @@ async function enrichProject(
         project.id,
         projectUsageService(log).getCurrentingStartPeriod(project.created),
     );
-
-    console.log('enrichProject', project, plan, usage)
   
     return {
         ...project,

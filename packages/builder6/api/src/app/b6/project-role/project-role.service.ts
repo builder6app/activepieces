@@ -1,6 +1,7 @@
 import { ActivepiecesError, apId, ApId, CreateProjectRoleRequestBody, ErrorCode, isNil, PlatformId, ProjectRole, RoleType, SeekPage, spreadIfDefined } from '@activepieces/shared'
 import { Brackets, Equal } from 'typeorm'
 import { repoFactory } from '@server-api/app/core/db/repo-factory'
+import { transaction } from '@server-api/app/core/db/transaction'
 import { ProjectMemberEntity } from '../project-members/project-member.entity'
 import { ProjectRoleEntity } from './project-role.entity'
 
