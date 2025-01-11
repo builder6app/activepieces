@@ -12,7 +12,7 @@ import {
 } from '@fastify/type-provider-typebox'
 import { StatusCodes } from 'http-status-codes'
 import { accessTokenManager } from '@server-api/app/authentication/lib/access-token-manager'
-import { platformService } from '../platform/platform.service'
+import { platformService } from '../../platform/platform.service'
 import { projectMemberService } from '../project-members/project-member.service'
 import { platformProjectService } from './platform-project-service'
 

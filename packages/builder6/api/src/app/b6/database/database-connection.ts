@@ -10,7 +10,7 @@ import { DatabaseType, system } from '@server-api/app/helper/system/system'
 import { AppSystemProp } from '@server-api/app/helper/system/system-prop'
 import { ProjectEntity } from '@server-api/app/project/project-entity'
 
-import { PlatformEntity } from '../platform/platform.entity'
+import { PlatformEntity } from '../../platform/platform.entity'
 import { ProjectMemberEntity } from '../project-members/project-member.entity'
 import { createPostgresDataSource } from './postgres-connection'
 import { createSqlLiteDataSource } from '@server-api/app/database/sqlite-connection'

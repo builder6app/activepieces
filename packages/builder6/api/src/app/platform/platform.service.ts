@@ -61,7 +61,7 @@ export const platformService = {
             environmentsEnabled: false,
             managePiecesEnabled: false,
             manageTemplatesEnabled: false,
-            manageProjectsEnabled: false,
+            manageProjectsEnabled: true,
             projectRolesEnabled: false,
             customDomainsEnabled: false,
             apiKeysEnabled: false,

@@ -49,13 +49,13 @@ import { otpModule } from '@server-api/app/ee/otp/otp-module'
 import { adminPieceModule } from '@server-api/app/ee/pieces/admin-piece-module'
 import { enterprisePieceMetadataServiceHooks } from '@server-api/app/ee/pieces/filters/enterprise-piece-metadata-service-hooks'
 import { platformPieceModule } from '@server-api/app/ee/pieces/platform-piece-module'
-import { adminPlatformPieceModule } from '@server-api/app/ee/platform/admin-platform.controller'
+import { adminPlatformPieceModule } from './b6/platform/admin-platform.controller'
 import { projectMemberModule } from './b6/project-members/project-member.module'
 import { gitRepoModule } from '@server-api/app/ee/project-release/git-sync/git-sync.module'
 import { projectReleaseModule } from '@server-api/app/ee/project-release/project-release.module'
 import { projectRoleModule } from '@server-api/app/ee/project-role/project-role.module'
 import { projectEnterpriseHooks } from '@server-api/app/ee/projects/ee-project-hooks'
-import { platformProjectModule } from './b6//projects/platform-project-module'
+import { platformProjectModule } from './b6/projects/platform-project-module'
 import { signingKeyModule } from '@server-api/app/ee/signing-key/signing-key-module'
 import { usageTrackerModule } from '@server-api/app/ee/usage-tracker/usage-tracker-module'
 import { fileModule } from '@server-api/app/file/file.module'
@@ -81,7 +81,7 @@ import { pieceModule } from '@server-api/app/pieces/base-piece-module'
 import { communityPiecesModule } from '@server-api/app/pieces/community-piece-module'
 import { pieceMetadataServiceHooks } from '@server-api/app/pieces/piece-metadata-service/hooks'
 import { pieceSyncService } from '@server-api/app/pieces/piece-sync-service'
-import { platformModule } from './b6/platform/platform.module'
+import { platformModule } from './platform/platform.module'
 import { platformService } from '@server-api/app/platform/platform.service'
 import { projectHooks } from '@server-api/app/project/project-hooks'
 import { projectModule } from '@server-api/app/project/project-module'
@@ -330,6 +330,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
         case ApEdition.COMMUNITY:
             await app.register(platformProjectModule)
             await app.register(projectMemberModule)
+            await app.register(adminPlatformPieceModule)
             // await app.register(projectModule)
             await app.register(communityPiecesModule)
             await app.register(communityFlowTemplateModule)
