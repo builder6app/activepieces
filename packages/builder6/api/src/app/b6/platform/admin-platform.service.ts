@@ -16,21 +16,25 @@ import { projectService } from '@server-api/app/project/project-service'
 export const adminPlatformService = (log: FastifyBaseLogger) => ({
     async add({
         userId,
-        projectId,
         name,
         domain,
     }: AdminAddPlatformParams): Promise<Platform> {
-        const project = await getProjectOrThrow(projectId)
 
         const platform = await platformService.create({
             ownerId: userId,
             name,
         })
 
-        await projectService.addProjectToPlatform({
-            projectId: project.id,
+        await projectService.create({
+            displayName: `${name} Project`,
+            ownerId: userId,
             platformId: platform.id,
         })
+        
+        // await projectService.addProjectToPlatform({
+        //     projectId: project.id,
+        //     platformId: platform.id,
+        // })
 
         // await platformService.update({
         //     id: platform.id,
@@ -60,9 +64,8 @@ export const adminPlatformService = (log: FastifyBaseLogger) => ({
 
 type AdminAddPlatformParams = {
     userId: UserId
-    projectId: ProjectId
     name: string
-    domain: string
+    domain?: string
 }
 
 const getProjectOrThrow = async (projectId: ProjectId): Promise<Project> => {
