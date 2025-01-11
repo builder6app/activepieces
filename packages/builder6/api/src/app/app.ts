@@ -53,7 +53,7 @@ import { adminPlatformPieceModule } from './b6/platform/admin-platform.controlle
 import { projectMemberModule } from './b6/project-members/project-member.module'
 import { gitRepoModule } from '@server-api/app/ee/project-release/git-sync/git-sync.module'
 import { projectReleaseModule } from '@server-api/app/ee/project-release/project-release.module'
-import { projectRoleModule } from '@server-api/app/ee/project-role/project-role.module'
+import { projectRoleModule } from './b6/project-role/project-role.module'
 import { projectEnterpriseHooks } from '@server-api/app/ee/projects/ee-project-hooks'
 import { platformProjectModule } from './b6/projects/platform-project-module'
 import { signingKeyModule } from '@server-api/app/ee/signing-key/signing-key-module'
@@ -331,6 +331,7 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
             await app.register(platformProjectModule)
             await app.register(projectMemberModule)
             await app.register(adminPlatformPieceModule)
+            await app.register(projectRoleModule)
             // await app.register(projectModule)
             await app.register(communityPiecesModule)
             await app.register(communityFlowTemplateModule)

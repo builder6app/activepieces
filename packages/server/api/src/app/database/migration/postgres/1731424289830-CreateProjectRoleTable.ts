@@ -136,6 +136,9 @@ export class CreateProjectRoleTable1731424289830 implements MigrationInterface {
         const projectMemberExists = await queryRunner.hasTable('project_member')
 
         if (projectMemberExists) {
+            log.info({
+                name: this.name,
+            }, 'alter project member table')
             await queryRunner.query(`
                 ALTER TABLE "project_member" ADD COLUMN "projectRoleId" character varying
         `)

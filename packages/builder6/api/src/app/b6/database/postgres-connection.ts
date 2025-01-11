@@ -6,6 +6,7 @@ import { ProjectMemberRelations1694381968985 } from './migrations/postgres/16943
 
 import { ModifyProjectMembersAndRemoveUserId1701647565290 } from './migrations/postgres/1701647565290-ModifyProjectMembersAndRemoveUserId'
 import { ModifyProjectMembers1717961669938 } from './migrations/postgres/1717961669938-ModifyProjectMembers'
+import { ReCreateProjectRoleTable1731424289830 } from './migrations/postgres/1731424289830-ReCreateProjectRoleTable'
 
 import { system } from '@server-api/app/helper/system/system'
 import { AppSystemProp } from '@server-api/app/helper/system/system-prop'
@@ -33,13 +34,14 @@ const getMigrations = (): (new () => MigrationInterface)[] => {
         case ApEdition.COMMUNITY:
             commonMigration.push(
 
-                // Builder6
+
                 AddProjectMembers1689177797092,
                 ProjectMemberRelations1694381968985,
                 ModifyProjectMembersAndRemoveUserId1701647565290,
                 ModifyProjectMembers1717961669938,
-                
-            )
+
+                ReCreateProjectRoleTable1731424289830,
+            )   
             break
     }
 
