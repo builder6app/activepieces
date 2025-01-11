@@ -87,6 +87,7 @@
     "@radix-ui/react-tooltip": "1.1.2",
     "@rollup/plugin-replace": "6.0.2",
     "@rollup/wasm-node": "4.21.2",
+    "@segment/analytics-core": "1.8.0",
     "@segment/analytics-next": "1.72.0",
     "@segment/analytics-node": "2.2.0",
     "@sendgrid/mail": "8.0.0",
